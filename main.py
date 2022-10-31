@@ -17,7 +17,7 @@ select_consumo = st.selectbox('Bajo Consumo', [1,2,3,4,5])
 select_potencia = st.selectbox('Potencia', [1,2,3,4,5])
 select_seguridad = st.selectbox('Seguridad', [1,2,3,4,5])
 marca = st.multiselect('Marca del vehículo', sorted(dataframe['Marca'].unique().tolist()))
-precio_max = st.slider('Precio en miles de pesos', 0, 10000)
+precio_max = st.number_input('Precio en miles de pesos, el máximo es de $10.000',min_value=0, max_value=10000)
 filtrado = dataframe[(dataframe['Marca'].isin(marca)) & (dataframe['Precio'] < precio_max)]
 filtrado['Puntuacion'] = (filtrado['C'] * (1 - select_consumo) + 10) + \
                           (filtrado['P'] * select_potencia + 10) + (filtrado['S'] * select_seguridad)
