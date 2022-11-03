@@ -1,5 +1,4 @@
 import streamlit as st
-from functions.functions import  defineInterfaz
 from data.dataFunctions import conectar , juntarDf
 def formInicial():
     nota = 0
