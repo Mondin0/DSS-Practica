@@ -1,8 +1,15 @@
 import streamlit as st
+
 def matrizNovato(dataframe,a,b,c):
     dataframe['Puntuacion'] = (dataframe['C'] * (1 - a) + 10) + \
                              (dataframe['P'] * b + 10) + (dataframe['S'] * c)
     return dataframe
+def defineInterfaz(levelUser,dataframe):
+    if levelUser == 'Novato':
+        interfazNovato(dataframe)
+    else:
+        pass
+
 
 def interfazNovato(dataframe):
     st.title('¿Querés comprarte un auto? Nosotros te ayudamos')
