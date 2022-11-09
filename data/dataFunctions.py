@@ -9,5 +9,6 @@ def juntarDf(con):
 
     dataframe1 = df.merge(df1, left_on='Version', right_on='Version')
     return dataframe1
+    
 def desconectar(con):
     con.close()
