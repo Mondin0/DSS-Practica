@@ -1,7 +1,10 @@
 import streamlit as st
-from data.dataFunctions import conectar , juntarDf
+from data.dataFunctions import conectar, juntarDf
 def formInicial():
-    
+
+    nota = 0
+    levelUser= ""
+
     placeholder = st.empty()
     levelUser= ''
 
@@ -9,6 +12,7 @@ def formInicial():
         
 
         st.write("Responde este pequeño formulario")
+
         preg1 = st.radio("¿Que es el torque?", ('La fuerza del motor','La tracción','La velocidad de arranque'))
         preg2 = st.selectbox("¿Que significa HP?", ('Caballo de fuerza','Hewlet Packard','Ninguna de las anteriores'))
         preg3 = st.selectbox("¿En que unidad se mide la presión de los neumaticos de un auto?", ('Kelvin', 'Bares','mmHg'))
@@ -27,8 +31,7 @@ def formInicial():
             nota +=1
         if preg5 == 'A altas RPM':
             nota +=1
-        
-        st.write(nota)
+       
         # Every form must have a submit button.
         submitted = st.form_submit_button("Responder")
         
@@ -46,6 +49,7 @@ def formInicial():
             
             
             
+
 
 
 
