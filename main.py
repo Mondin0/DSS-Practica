@@ -4,16 +4,15 @@ from functions.functions import defineInterfaz,interfazNovato,interfazExperto
 from functions.formulario import formInicial
 
 con = conectar()
-#11
 dataframe = juntarDf(con)
 
-
-levelUser = formInicial()
-
+#levelUser= st.selectbox("nivel de usuario", ["Novato", "Experto"])
+levelUser= formInicial()
+#st.write(levelUser)
 defineInterfaz(levelUser,dataframe)
 
 
-"comentario"
+
 
 
 
