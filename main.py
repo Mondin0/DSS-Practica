@@ -4,8 +4,8 @@ from functions.functions import defineInterfaz,interfazNovato,interfazExperto,in
 from functions.formulario import formInicial
 
 con = conectar()
-
 dataframe = juntarDf(con)
+
 
 
 
@@ -13,6 +13,7 @@ levelUser = interfazPrincipal(dataframe)
 interfaz = defineInterfaz(levelUser, dataframe)
 
 documentacion()
+
 
 
 

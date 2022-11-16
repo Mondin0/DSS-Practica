@@ -2,8 +2,7 @@ import streamlit as st
 from data.dataFunctions import conectar, juntarDf
 def formInicial():
 
-    nota = 0
-    levelUser= ""
+
 
     placeholder = st.empty()
     levelUser= ''
@@ -31,14 +30,15 @@ def formInicial():
             if preg5 == 'A altas RPM':
                 nota +=1
 
-        
-        
-                
-        
 
+
+        
+        
+              
 
        
         # Every form must have a submit button.
+
         submitted = st.button("Responder")
         
         if submitted:
@@ -53,6 +53,7 @@ def formInicial():
             
 
             
+
     return levelUser
             
             
