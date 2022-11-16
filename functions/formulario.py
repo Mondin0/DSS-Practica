@@ -7,39 +7,52 @@ def formInicial():
     placeholder = st.empty()
     levelUser= ''
 
-    with placeholder.form("my_form"):
-        
+    
+    with placeholder.container():
 
-        st.write("Responde este pequeño formulario")
-
-        preg1 = st.radio("¿Que es el torque?", ('','La fuerza del motor','La tracción','La velocidad de arranque'))
-        preg2 = st.selectbox("¿Que significa HP?", ('','Caballo de fuerza','Hewlet Packard','Ninguna de las anteriores'))
-        preg3 = st.selectbox("¿En que unidad se mide la presión de los neumaticos de un auto?", ('Kelvin', 'Bares','mmHg'))
-        preg4 = st.selectbox("un auto con motor mas grande consume más combustible que uno con motor chico...", ('Verdadero','Falso'))
-        preg5 = st.selectbox("¿Cuando gasta mas compustible el vehiculo?", ('A altas RPM','A bajas RPM'))
-        
         nota = 0
+        st.title("FORMULARIO DE AYUDA AL CLIENTE")
+        st.write("Responde este pequeño formulario para poder ayudarlo a escojer su automovil ideal")
+        preg1 = st.radio("¿Es tu primer auto?", ('.','Si','No'))
+        preg2 = st.radio("¿Posee conocimientos tecnicos sobre el auto que desea comprar?", ('.','Si','No'))
+        if preg2 == "Si":
 
-        if preg1 == 'La fuerza del motor':
-            nota +=1
-        if preg2 == 'Caballo de fuerza':
-            nota +=1
-        if preg3 == 'Bares':
-            nota +=1
-        if preg4 == 'Verdadero':
-            nota +=1
-        if preg5 == 'A altas RPM':
-            nota +=1
+
+            preg3 = st.selectbox("¿En que unidad se mide la presión de los neumaticos de un auto?", ('Kelvin', 'Bares','mmHg'))
+            if preg3 == 'Bares':
+                nota +=1
+
+            preg4 = st.selectbox("un auto con motor mas grande consume más combustible que uno con motor chico...", ('Verdadero','Falso'))
+            if preg4 == 'Verdadero':
+                nota +=1
+
+            preg5 = st.selectbox("¿Cuando gasta mas compustible el vehiculo?", ('A altas RPM','A bajas RPM'))
+            if preg5 == 'A altas RPM':
+                nota +=1
+
+
+
+        
+        
+              
+
        
         # Every form must have a submit button.
-        submitted = st.form_submit_button("Responder")
 
+        submitted = st.button("Responder")
+        
         if submitted:
+        
+            if preg1 == "Si" and preg2 == "NO" and nota <3:
+                levelUser = "Novato"
+            elif nota == 3:
+                levelUser='Experto'
+            
+            
             placeholder.empty()
-        if nota <= 3 and nota > 0:
-            levelUser = 'Novato'
-        elif nota >= 4 and nota > 0:
-            levelUser = 'Experto'
+            
+
+            
 
     return levelUser
             
