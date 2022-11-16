@@ -18,7 +18,8 @@ def defineInterfaz(levelUser,dataframe):
         st.write("Interfaz Experto")
         interfazExperto(dataframe)
     
-        
+
+     
         
 
 def interfazPrincipal(dataframe):
@@ -26,76 +27,82 @@ def interfazPrincipal(dataframe):
         with principal.container():
             st.title("AUTOS ISFDyT124")
             st.write('Especifique la marca y el precio para ver los automoviles disponibles que cumplan su requisito')
-            marcaP = st.multiselect('Marca del vehículo', sorted(dataframe['Marca'].unique().tolist()))
+            select_interfaz = st.selectbox("Define tu usuario",("No se","Novato","Experto"))
+            if select_interfaz == "Novato":
+                interfazNovato(dataframe)
+            elif select_interfaz == "Experto":
+                interfazExperto(dataframe)
             
-            if marcaP == []:
-                st.warning("Seleccione una Marca")
-            precio_max = st.number_input('Precio en miles de pesos, el máximo es de $10.000', min_value=0,key="precio_principal",step=1000)
-            if precio_max == 0:
-                st.warning("Indique el precio maximo que desea")
-            elif precio_max > 10000:
-                st.error("El precio maximo no debe superar los 10000$")
-            filtrado = dataframe[(dataframe['Marca'].isin(marcaP)) & (dataframe['Precio'] < precio_max)]
-            num_resultados = len(filtrado)
-            with st.expander(f'Tenemos {num_resultados} automoviles que cumplen con sus requisitos '):
-                st._arrow_table(
-                filtrado.loc[:, ['Marca', 'Modelo', 'Version', 'Precio', ]].sort_values(by='Precio',
-                                                                                                    ascending=True),
-            )
+        #     marcaP = st.multiselect('Marca del vehículo', sorted(dataframe['Marca'].unique().tolist()))
+            
+        #     if marcaP == []:
+        #         st.warning("Seleccione una Marca")
+        #     precio_max = st.number_input('Precio en miles de pesos, el máximo es de $10.000', min_value=0,key="precio_principal",step=1000)
+        #     if precio_max == 0:
+        #         st.warning("Indique el precio maximo que desea")
+        #     elif precio_max > 10000:
+        #         st.error("El precio maximo no debe superar los 10000$")
+        #     filtrado = dataframe[(dataframe['Marca'].isin(marcaP)) & (dataframe['Precio'] < precio_max)]
+        #     num_resultados = len(filtrado)
+        #     with st.expander(f'Tenemos {num_resultados} automoviles que cumplen con sus requisitos '):
+        #         st._arrow_table(
+        #         filtrado.loc[:, ['Marca', 'Modelo', 'Version', 'Precio', ]].sort_values(by='Precio',
+        #                                                                                             ascending=True),
+        #     )
 
 
-        #FORMULARIO DE AYUDA AL CLIENTE
-            st.info("Si necesitas ayuda precione la opcion de AYUDA PROFESIONAL")
+        # #FORMULARIO DE AYUDA AL CLIENTE
+        #     st.info("Si necesitas ayuda precione la opcion de AYUDA PROFESIONAL")
         
-        formulario = st.empty()
-        with formulario.expander("AYUDA PROFESIONAL"):
-            placeholder = st.empty()
-            levelUser= ''
+        # formulario = st.empty()
+        # with formulario.expander("AYUDA PROFESIONAL"):
+        #     placeholder = st.empty()
+        #     levelUser= ''
     
-            with placeholder.container():
+        #     with placeholder.container():
 
-                nota = 0
-                st.title("FORMULARIO DE AYUDA AL CLIENTE")
-                st.write("Responde este pequeño formulario para poder ayudarlo a escojer su automovil ideal")
-                preg1 = st.radio("¿Es tu primer auto?", ('.','Si','No'))
-                st.write(preg1)
-                preg2 = st.radio("¿Posee conocimientos tecnicos sobre el auto que desea comprar?", ('.','Si','No'))
+        #         nota = 0
+        #         st.title("FORMULARIO DE AYUDA AL CLIENTE")
+        #         st.write("Responde este pequeño formulario para poder ayudarlo a escojer su automovil ideal")
+        #         preg1 = st.radio("¿Es tu primer auto?", ('.','Si','No'))
+        #         st.write(preg1)
+        #         preg2 = st.radio("¿Posee conocimientos tecnicos sobre el auto que desea comprar?", ('.','Si','No'))
                 
-                if preg2 == "Si":
-                    st.write("Seleccione la opcion que le parezca correta y continue")
-                    preg3 = st.selectbox("¿En que unidad se mide la presión de los neumaticos de un auto?", ('Kelvin', 'Bares','mmHg'))
-                    if preg3 == 'Bares':
-                        nota +=1
+        #         if preg2 == "Si":
+        #             st.write("Seleccione la opcion que le parezca correta y continue")
+        #             preg3 = st.selectbox("¿En que unidad se mide la presión de los neumaticos de un auto?", ('Kelvin', 'Bares','mmHg'))
+        #             if preg3 == 'Bares':
+        #                 nota +=1
 
-                    preg4 = st.selectbox("un auto con motor mas grande consume más combustible que uno con motor chico...", ('Verdadero','Falso'))
-                    if preg4 == 'Verdadero':
-                        nota +=1
+        #             preg4 = st.selectbox("un auto con motor mas grande consume más combustible que uno con motor chico...", ('Verdadero','Falso'))
+        #             if preg4 == 'Verdadero':
+        #                 nota +=1
 
-                    preg5 = st.selectbox("¿Cuando gasta mas compustible el vehiculo?", ('A altas RPM','A bajas RPM'))
-                    if preg5 == 'A altas RPM':
-                        nota +=1
+        #             preg5 = st.selectbox("¿Cuando gasta mas compustible el vehiculo?", ('A altas RPM','A bajas RPM'))
+        #             if preg5 == 'A altas RPM':
+        #                 nota +=1
 
                     
                 
-                st.write(nota)
-                # Every form must have a submit button.
-                submitted = st.button("Responder")
+        #         st.write(nota)
+        #         # Every form must have a submit button.
+        #         submitted = st.button("Responder")
                 
-                if submitted:
+        #         if submitted:
                     
-                    if preg1 == "Si" and preg2 == "NO" or nota < 2:
-                        levelUser = "Novato"
-                    elif nota == 3:
-                        levelUser='Experto'
-                    principal.empty()
-                    placeholder.empty()
-                    formulario.empty()
+        #             if preg1 == "Si" and preg2 == "NO" or nota < 2:
+        #                 levelUser = "Novato"
+        #             elif nota == 3:
+        #                 levelUser='Experto'
+        #             principal.empty()
+        #             placeholder.empty()
+        #             formulario.empty()
                     
                     
                     
                     
                                 
-        return levelUser
+        # return levelUser
             
         
                

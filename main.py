@@ -10,7 +10,7 @@ dataframe = juntarDf(con)
 
 
 levelUser = interfazPrincipal(dataframe)
-interfaz = defineInterfaz(levelUser, dataframe)
+# interfaz = defineInterfaz(levelUser, dataframe)
 
 documentacion()
 
