@@ -147,12 +147,12 @@ def interfazNovato(dataframe):
             st.info("Seguridad Aceptable")
         elif select_seguridad > 3:
             st.success("Seguridad Alta")
-    colMarca2,colPrecio = st.columns(2)
-    with colMarca2:
-        marca = st.multiselect('Marca del vehículo', sorted(dataframe['Marca'].unique().tolist()),key="novato")
-    with colPrecio:
-        precio_max = st.number_input('Precio en miles de pesos, el máximo es de $10.000', min_value=0, max_value=10000,key="precio_novato",step=1000)
-        st.info(f"Precio Maximo: {precio_max}000$")
+
+    
+    marca = st.multiselect('Marca del vehículo', sorted(dataframe['Marca'].unique().tolist()),key="novato")
+    
+    precio_max = st.number_input('Precio en miles de pesos, el máximo es de $10.000', min_value=0, max_value=10000,key="precio_novato",step=1000)
+    st.info(f"Precio Maximo: {precio_max}000$")
 
         
     filtrado = dataframe[(dataframe['Marca'].isin(marca)) & (dataframe['Precio'] < precio_max)]
@@ -183,18 +183,40 @@ def interfazExperto(dataframe):
         st.title("Opciones tecnicas")
 
         select_consumo = st.radio('Bajo Consumo', [1, 2, 3, 4, 5],horizontal=True)
+        if select_consumo == 1 or select_consumo == 2:
+            st.success("Bajo Consumo")
+        elif select_consumo == 3:
+            st.warning("Consumo moderado")
+        elif select_consumo > 3:
+            st.error("Alto Consumo")
+
         select_potencia = st.radio('Potencia', [1, 2, 3, 4, 5],horizontal=True)
+        if select_potencia == 1 or select_potencia == 2:
+            st.error("Baja Potencia")
+        elif select_potencia == 3:
+            st.warning("Potencia Moderada")
+        elif select_potencia > 3:
+            st.success("Alta Potencia")
         select_seguridad = st.radio('Seguridad', [1, 2, 3, 4, 5],horizontal=True)
-        transmision = st.multiselect("Transmision del vehiculo",dataframe["Transmisión"].unique().tolist())
+        if select_seguridad == 1 or select_potencia == 2:
+            st.warning("Seguridad Baja")
+        elif select_seguridad == 3:
+            st.info("Seguridad Aceptable")
+        elif select_seguridad > 3:
+            st.success("Seguridad Alta")
         
         
-    colMarca,colTipo = st.columns(2) 
+        
+
+        
+    colMarca,colTipo,colTrans = st.columns(3) 
     with colMarca:
         marca = st.multiselect('Marca del vehículo', sorted(dataframe['Marca'].unique().tolist()),default=dataframe["Marca"][0],key="experto")
     
     with colTipo:
         tipo = st.multiselect("Tipo de vehiculo",dataframe["TipoVehiculo"].unique().tolist())
-
+    with colTrans:
+        transmision = st.multiselect("Transmision del vehiculo",dataframe["Transmisión"].unique().tolist())
 
     
 
